@@ -1,1 +1,4 @@
-# tup_prog_1_2026_g03_practico1
+# Grupo 3: 
+Candela SOLIS LLANES
+Juan David COLA
+Lucas BERDUN
