@@ -1,0 +1,228 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+
+namespace TrabajoPracticoMEJORADO
+{
+    internal class PuestoControl
+        {
+            Ticket[] ticket;
+            double precioCat1;
+            double precioCat2;
+            double precioCat3;
+            double precioCat4;
+            int cantidadTickets;
+            int contVehiculosCarga = 0;
+            private double recaudacionTotal = 0;
+
+
+        public PuestoControl(double pr1, double pr2, double pr3, double pr4)
+        {
+            precioCat1 = pr1;
+            precioCat2 = pr2;
+            precioCat3 = pr3;
+            precioCat4 = pr4;
+            ticket = new Ticket[100];
+            cantidadTickets = 0;
+            recaudacionTotal = 0;
+        }
+
+        public double RecaudacionTotal
+        {
+            get { return recaudacionTotal; }
+        }
+        public Ticket RegistrarPeaje(int hr, int cat, bool esHab, bool esPrep)
+        {
+            Ticket tickets = new Ticket();
+            switch (cat)
+            {
+
+                case 1:
+                    tickets = new Ticket(hr, cat, esHab, precioCat1, esPrep);
+                    break;
+                case 2:
+                    tickets = new Ticket(hr, cat, esHab, precioCat2, esPrep);
+
+                    break;
+                case 3:
+                    tickets = new Ticket(hr, cat, esHab, precioCat3, esPrep);
+                    contVehiculosCarga++;
+                    break;
+                case 4:
+                    tickets = new Ticket(hr, cat, esHab, precioCat4, esPrep);
+                    contVehiculosCarga++;
+                    break;
+            }
+            ticket[cantidadTickets] = tickets;
+            cantidadTickets++;
+
+            string ticketi = tickets.VerInformacion();
+            if (cat == 1)
+            {
+                precioCat1 = tickets.PrecioCatSelect;
+
+            }
+            else if (cat == 2)
+            {
+                precioCat2 = tickets.PrecioCatSelect;
+            }
+            else if (cat == 3)
+            {
+                precioCat3 = tickets.PrecioCatSelect;
+            }
+            else if (cat == 4)
+            {
+                precioCat4 = tickets.PrecioCatSelect;
+            }
+            return tickets;
+        }
+        public int VerCantidadTickets()
+        {
+            return cantidadTickets;
+        }
+        public string[] VerVehiculosCarga()
+        {
+            string[] vehiculosCarga;
+            int contadorVehiculos = 0;
+            for (int i = 0; i < cantidadTickets; i++)
+            {
+                if (ticket[i].Categoria == 3 || ticket[i].Categoria == 4)
+                {
+                    contadorVehiculos++;
+                }
+            }
+            vehiculosCarga = new string[contadorVehiculos];
+            int idx = 0;
+            for (int i = 0; i < cantidadTickets; i++)
+            {
+                if (ticket[i].Categoria == 3 || ticket[i].Categoria == 4)
+                {
+                    vehiculosCarga[idx] = ticket[i].VerInformacion();
+                    idx++;
+                }
+            }
+            return vehiculosCarga;
+        }
+        public double[] VerPorcentajePorCategoria()
+        {
+            double porcentaje1;
+            double porcentaje2;
+            double porcentaje3;
+            double porcentaje4;
+            double[] Porcentaje = new double[4];
+            int totalCat1 = 0;
+            int totalCat2 = 0;
+            int totalCat3 = 0;
+            int totalCat4 = 0;
+
+            for (int i = 0; i < cantidadTickets; i++)
+            {
+                if (ticket[i].Categoria == 1)
+                {
+                    totalCat1++;
+                }
+                if (ticket[i].Categoria == 2)
+                {
+                    totalCat2++;
+                }
+                if (ticket[i].Categoria == 3)
+                {
+                    totalCat3++;
+                }
+                if (ticket[i].Categoria == 4)
+                {
+                    totalCat4++;
+                }
+            }
+            porcentaje1 = ((double)totalCat1 / cantidadTickets) * 100;
+            porcentaje2 = ((double)totalCat2 / cantidadTickets) * 100;
+            porcentaje3 = ((double)totalCat3 / cantidadTickets) * 100;
+            porcentaje4 = ((double)totalCat4 / cantidadTickets) * 100;
+
+            Porcentaje[0] = porcentaje1;
+            Porcentaje[1] = porcentaje2;
+            Porcentaje[2] = porcentaje3;
+            Porcentaje[3] = porcentaje4;
+
+            return Porcentaje;
+        }
+        public double[] VerPorcentajePorSistemaPago()
+        {
+            double[] Porcentaje;
+            int totalPrep1 = 0;
+            int totalPrep2 = 0;
+            int totalPrep3 = 0;
+            int totalPrep4 = 0;
+            double porcentaje1;
+            double porcentaje2;
+            double porcentaje3;
+            double porcentaje4;
+            Porcentaje = new double[4];
+            for (int i = 0; i < cantidadTickets; i++)
+            {
+                if (ticket[i].EsSistemaPrepago == true)
+                {
+                    if (ticket[i].Categoria == 1)
+                    {
+                        totalPrep1++;
+                    }
+                    if (ticket[i].Categoria == 2)
+                    {
+                        totalPrep2++;
+                    }
+                    if (ticket[i].Categoria == 3)
+                    {
+                        totalPrep3++;
+                    }
+                    if (ticket[i].Categoria == 4)
+                    {
+                        totalPrep4++;
+                    }
+                }
+            }
+            porcentaje1 = ((double)totalPrep1 / cantidadTickets) * 100;
+            porcentaje2 = ((double)totalPrep2 / cantidadTickets) * 100;
+            porcentaje3 = ((double)totalPrep3 / cantidadTickets) * 100;
+            porcentaje4 = ((double)totalPrep4 / cantidadTickets) * 100;
+
+            Porcentaje[0] = porcentaje1;
+            Porcentaje[1] = porcentaje2;
+            Porcentaje[2] = porcentaje3;
+            Porcentaje[3] = porcentaje4;
+
+            return Porcentaje;
+        }
+        public void VerRecaudacionTotal()
+        {
+            double recaudacion = 0;
+            for (int i = 0; i < cantidadTickets; i++)
+            {
+                if (ticket[i].Categoria == 1)
+                {
+                    recaudacion += ticket[i].PrecioCatSelect;
+                }
+                if (ticket[i].Categoria == 2)
+                {
+                    recaudacion += ticket[i].PrecioCatSelect;
+                }
+                if (ticket[i].Categoria == 3)
+                {
+                    recaudacion += ticket[i].PrecioCatSelect;
+                }
+                if (ticket[i].Categoria == 4)
+                {
+                    recaudacion += ticket[i].PrecioCatSelect;
+                }
+            }
+
+        }
+        public Ticket[] VerHistorial()
+        {
+            return ticket;
+        }
+    }
+}
