@@ -189,13 +189,15 @@ namespace TrabajoPracticoMEJORADO
 
             return Porcentaje;
         }
-        public void VerRecaudacionTotal()
+        
+        public double VerRecaudacionTotal()
         {
-            double recaudacion = 0;
+           double recaudacionTotal = 0;
             for (int i = 0; i < cantidadTickets; i++)
             {
-                recaudacion += ticket[i].CalcularCosto();
+                recaudacionTotal += ticket[i].CalcularCosto();
             }
+            return recaudacionTotal;
             
         }
         public Ticket[] VerHistorial()

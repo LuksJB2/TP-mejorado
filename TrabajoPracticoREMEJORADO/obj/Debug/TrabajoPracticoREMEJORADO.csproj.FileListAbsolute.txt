@@ -1,0 +1,12 @@
+C:\Users\assas\OneDrive\Escritorio\Nueva carpeta\repos\TrabajoPracticoREMEJORADO\TrabajoPracticoREMEJORADO\bin\Debug\TrabajoPracticoREMEJORADO.exe.config
+C:\Users\assas\OneDrive\Escritorio\Nueva carpeta\repos\TrabajoPracticoREMEJORADO\TrabajoPracticoREMEJORADO\bin\Debug\TrabajoPracticoREMEJORADO.exe
+C:\Users\assas\OneDrive\Escritorio\Nueva carpeta\repos\TrabajoPracticoREMEJORADO\TrabajoPracticoREMEJORADO\bin\Debug\TrabajoPracticoREMEJORADO.pdb
+C:\Users\assas\OneDrive\Escritorio\Nueva carpeta\repos\TrabajoPracticoREMEJORADO\TrabajoPracticoREMEJORADO\obj\Debug\TrabajoPracticoREMEJORADO.csproj.AssemblyReference.cache
+C:\Users\assas\OneDrive\Escritorio\Nueva carpeta\repos\TrabajoPracticoREMEJORADO\TrabajoPracticoREMEJORADO\obj\Debug\TrabajoPracticoREMEJORADO.Form1.resources
+C:\Users\assas\OneDrive\Escritorio\Nueva carpeta\repos\TrabajoPracticoREMEJORADO\TrabajoPracticoREMEJORADO\obj\Debug\TrabajoPracticoREMEJORADO.Form2.resources
+C:\Users\assas\OneDrive\Escritorio\Nueva carpeta\repos\TrabajoPracticoREMEJORADO\TrabajoPracticoREMEJORADO\obj\Debug\TrabajoPracticoREMEJORADO.Form3.resources
+C:\Users\assas\OneDrive\Escritorio\Nueva carpeta\repos\TrabajoPracticoREMEJORADO\TrabajoPracticoREMEJORADO\obj\Debug\TrabajoPracticoREMEJORADO.Properties.Resources.resources
+C:\Users\assas\OneDrive\Escritorio\Nueva carpeta\repos\TrabajoPracticoREMEJORADO\TrabajoPracticoREMEJORADO\obj\Debug\TrabajoPracticoREMEJORADO.csproj.GenerateResource.cache
+C:\Users\assas\OneDrive\Escritorio\Nueva carpeta\repos\TrabajoPracticoREMEJORADO\TrabajoPracticoREMEJORADO\obj\Debug\TrabajoPracticoREMEJORADO.csproj.CoreCompileInputs.cache
+C:\Users\assas\OneDrive\Escritorio\Nueva carpeta\repos\TrabajoPracticoREMEJORADO\TrabajoPracticoREMEJORADO\obj\Debug\TrabajoPracticoREMEJORADO.exe
+C:\Users\assas\OneDrive\Escritorio\Nueva carpeta\repos\TrabajoPracticoREMEJORADO\TrabajoPracticoREMEJORADO\obj\Debug\TrabajoPracticoREMEJORADO.pdb

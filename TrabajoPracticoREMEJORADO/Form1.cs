@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrabajoPracticoMEJORADO;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace TrabajoPracticoREMEJORADO
 {
@@ -28,6 +29,7 @@ namespace TrabajoPracticoREMEJORADO
 
         private void btnIniciarJornada_Click(object sender, EventArgs e)
         {
+
             if (fjornada.ShowDialog() == DialogResult.OK)
             {
                 double pr1 = Convert.ToDouble(fjornada.tbCategoria1.Text);
@@ -41,8 +43,16 @@ namespace TrabajoPracticoREMEJORADO
 
         private void btnRegistrarVehiculo_Click(object sender, EventArgs e)
         {
+            if (puestoControl == null)
+            {
+                MessageBox.Show("Debe iniciar la jornada y cargar los precios primero.");
+                return;
+            }
+
             bool esPrep = rbPrepago.Checked;
             int cat = 0;
+
+
             if (rbCat1.Checked)
             {
                 cat = 1;
@@ -59,21 +69,39 @@ namespace TrabajoPracticoREMEJORADO
             {
                 cat = 4;
             }
-            int numeroP = Convert.ToInt32(tbNumeroP.Text); //La patente(en el tp dice que si es cat 3 o 4
-            string letraP = tbLetrasP.Text;                //asi que vere como hacerlo solamente con eso.
+            if (cat == 0)
+            {
+                MessageBox.Show("Debe seleccionar una categoría.");
+                return;
+            }
+
+            if (tbNumeroP.Text == "")
+            {
+                MessageBox.Show("Debe ingresar el número de la patente.");
+                return;
+            }
+
+            int numeroP = Convert.ToInt32(tbNumeroP.Text); 
+
+            if (tbLetrasP.Text == "")
+            {
+                MessageBox.Show("Debe ingresar las letras de la patente.");
+                return;
+            }
+
+            string letraP = tbLetrasP.Text;                
 
 
-            int m = (Convert.ToInt32(nudMes.Value)); //mes y dia para la fecha.
+            int m = (Convert.ToInt32(nudMes.Value)); 
             int d = Convert.ToInt32(nudDia.Value);
 
-            int hora = (int)nudHora.Value; //aca recibe hora y minutos y los junta para hacer las comparaciones y calculos
+            int hora = (int)nudHora.Value; 
             int minutos = (int)nudMin.Value;
             int hr = hora * 100 + minutos;
 
             bool esHab = cbDiaHabil.Checked;
 
-            string ticket = puestoControl.RegistrarPeaje(hr, cat, esHab, esPrep).ToString(); //revisar si tiene que devolver un string o el ticket 
-
+            Ticket ticket = puestoControl.RegistrarPeaje(hr, cat, esHab, esPrep);
             if (cat == 3 || cat == 4)
             {
                 if (hr >= 2300 && hr <= 0030)
@@ -84,50 +112,92 @@ namespace TrabajoPracticoREMEJORADO
                     }
                 }
             }
+            finfo.tbInformacion.Clear();
+            finfo.tbInformacion.Text = $"{ticket.VerInformacion()}";
+            finfo.ShowDialog();
+            rbPrepago.Checked = false;
+            rbEfectivo.Checked = false;
+            rbCat1.Checked = false;
+            rbCat2.Checked = false;
+            rbCat3.Checked = false;
+            rbCat4.Checked = false;
+            tbLetrasP.Clear();
+            tbNumeroP.Clear();
+            nudDia.Value = 1;
+            nudMes.Value = 1;
+            nudHora.Value = 0;
+            nudMin.Value = 0;
         }
 
         private void btnPorcentajeClases_Click(object sender, EventArgs e)
         {
+            if (puestoControl == null)
+            {
+                MessageBox.Show("Debe iniciar la jornada y cargar los precios primero.");
+                return;
+            }
+
             finfo.tbInformacion.Clear();
             finfo.tbInformacion.Text = "Porcentaje de clases:";
             double[] porcentaje = puestoControl.VerPorcentajePorCategoria();
             for (int i = 0; i < porcentaje.Length; i++)
             {
                 double porc = porcentaje[i];
-                finfo.tbInformacion.Text += $"Categoria {i}: %{porc}";
+                finfo.tbInformacion.Text += $"Categoria {i + 1}: %{porc}";
             }
             finfo.ShowDialog();
         }
 
         private void btnPorcentajeTarjeta_Click(object sender, EventArgs e)
         {
+            if (puestoControl == null)
+            {
+                MessageBox.Show("Debe iniciar la jornada y cargar los precios primero.");
+                return;
+            }
+
             double[] porcentajePrepago = puestoControl.VerPorcentajePorSistemaPago();
             finfo.tbInformacion.Clear();
             for (int i = 0; i < porcentajePrepago.Length; i++)
             {
                 finfo.tbInformacion.Text = $"Porcentaje pagos con prepago: {porcentajePrepago[i]}";
             }
-                finfo.ShowDialog();
+            finfo.ShowDialog();
         }
 
         private void btnRecaudacion_Click(object sender, EventArgs e)
         {
+            if (puestoControl == null)
+            {
+                MessageBox.Show("Debe iniciar la jornada y cargar los precios primero.");
+                return;
+            }
+
             puestoControl.VerRecaudacionTotal();
 
-            finfo.tbInformacion.Text = $"Monto total recaudado: ${puestoControl.VerRecaudacionTotal}";
-
+            finfo.tbInformacion.Text = $"Monto total recaudado: ${puestoControl.VerRecaudacionTotal()}";
+            finfo.ShowDialog();
 
         }
 
         private void btnVerInformacion_Click(object sender, EventArgs e)
         {
+            if (puestoControl == null)
+            {
+                MessageBox.Show("Debe iniciar la jornada y cargar los precios primero.");
+                return;
+            }
+
+
             Ticket[] historial = puestoControl.VerHistorial();
             finfo.tbInformacion.Clear();
-            for (int i = 0; i < cantidadTickets; i++)
+            for (int i = 0; i < puestoControl.VerCantidadTickets(); i++)
             {
                 string tickets = historial[i].VerInformacion();
                 finfo.tbInformacion.Text += $"\r\n*{tickets}\r\n";
+
             }
+            finfo.ShowDialog();
         }
     }
 }
